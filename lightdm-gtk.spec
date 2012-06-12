@@ -1,7 +1,7 @@
 Summary: LightDM GTK+ Greeter
 Name:	 lightdm-gtk
 Version: 1.1.6
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 License: GPLv3+
 URL:	 https://launchpad.net/lightdm-gtk-greeter
@@ -18,7 +18,7 @@ BuildRequires: pkgconfig(gtk+-3.0)
 Obsoletes: lightdm-gtk-greeter < 1.1.5-4
 Provides:  lightdm-gtk-greeter = %{version}-%{release}
 
-Provides: lightdm-greeter
+Provides: lightdm-greeter = 1.2
 
 # for /usr/share/backgrounds/default.png
 Requires: desktop-backgrounds-compat
@@ -56,6 +56,9 @@ make install DESTDIR=%{buildroot}
 
 
 %changelog
+* Tue Jun 12 2012 Rex Dieter <rdieter@fedoraproject.org> 1.1.6-2
+- Provides: lightdm-greeter = 1.2
+
 * Mon Jun 11 2012 Rex Dieter <rdieter@fedoraproject.org> 1.1.6-1
 - lightdm-gtk-greeter-1.1.6
 - fix Source Url
