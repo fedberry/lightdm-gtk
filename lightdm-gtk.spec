@@ -1,7 +1,7 @@
 Summary: LightDM GTK+ Greeter
 Name:	 lightdm-gtk
 Version: 1.1.6
-Release: 2%{?dist}
+Release: 3%{?dist}
 
 License: GPLv3+
 URL:	 https://launchpad.net/lightdm-gtk-greeter
@@ -23,6 +23,9 @@ Provides: lightdm-greeter = 1.2
 # for /usr/share/backgrounds/default.png
 Requires: desktop-backgrounds-compat
 Requires: lightdm
+
+Requires(post): %{_sbindir}/update-alternatives
+Requires(postun): %{_sbindir}/update-alternatives
 
 %description
 A LightDM greeter that uses the GTK+ toolkit.
@@ -46,6 +49,23 @@ make install DESTDIR=%{buildroot}
 
 %find_lang lightdm-gtk-greeter 
 
+# own alternatives target
+touch %{buildroot}%{_datadir}/xgreeters/lightdm-greeter.desktop
+
+
+%post
+%{_sbindir}/update-alternatives \
+  --install %{_datadir}/xgreeters/lightdm-greeter.desktop \
+  lightdm-greeter \
+  %{_datadir}/xgreeters/lightdm-gtk-greeter.desktop \
+  20 
+
+%postun
+if [ $1 -eq 0 ]; then
+%{_sbindir}/update-alternatives \
+  --remove lightdm-greeter \
+  %{_datadir}/xgreeters/lightdm-gtk-greeter.desktop
+fi
 
 %files -f lightdm-gtk-greeter.lang
 %doc ChangeLog COPYING NEWS README
@@ -53,9 +73,14 @@ make install DESTDIR=%{buildroot}
 %{_sbindir}/lightdm-gtk-greeter
 %{_datadir}/lightdm-gtk-greeter
 %{_datadir}/xgreeters/lightdm-gtk-greeter.desktop
+# own alternatives target
+%ghost %{_datadir}/xgreeters/lightdm-greeter.desktop
 
 
 %changelog
+* Fri Jun 15 2012 Rex Dieter <rdieter@fedoraproject.org> 1.1.6-3
+- try using alternatives
+
 * Tue Jun 12 2012 Rex Dieter <rdieter@fedoraproject.org> 1.1.6-2
 - Provides: lightdm-greeter = 1.2
 
