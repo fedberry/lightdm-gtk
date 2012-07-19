@@ -1,7 +1,7 @@
 Summary: LightDM GTK+ Greeter
 Name:	 lightdm-gtk
 Version: 1.1.6
-Release: 3%{?dist}
+Release: 4%{?dist}
 
 License: GPLv3+
 URL:	 https://launchpad.net/lightdm-gtk-greeter
@@ -78,6 +78,9 @@ fi
 
 
 %changelog
+* Thu Jul 19 2012 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1.1.6-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_18_Mass_Rebuild
+
 * Fri Jun 15 2012 Rex Dieter <rdieter@fedoraproject.org> 1.1.6-3
 - try using alternatives
 
