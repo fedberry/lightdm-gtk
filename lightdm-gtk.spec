@@ -1,28 +1,28 @@
-Summary: LightDM GTK+ Greeter
-Name:	 lightdm-gtk
-Version: 1.1.6
-Release: 4%{?dist}
+Summary:        LightDM GTK+ Greeter
+Name:           lightdm-gtk
+Version:        1.3.1
+Release:        1%{?dist}
 
-License: GPLv3+
-URL:	 https://launchpad.net/lightdm-gtk-greeter
-Source0: https://launchpad.net/lightdm-gtk-greeter/trunk/%{version}/+download/lightdm-gtk-greeter-%{version}.tar.gz
+License:        GPLv3+
+URL:            https://launchpad.net/lightdm-gtk-greeter
+Source0:        https://launchpad.net/lightdm-gtk-greeter/1.4/%{version}/+download/lightdm-gtk-greeter-%{version}.tar.gz
 
 # tweak default config
-Patch1: lightdm-gtk-greeter-1.1.5-fedora.patch
+Patch1:         lightdm-gtk-greeter-1.3.1-fedora.patch
 
-BuildRequires: gettext
-BuildRequires: intltool
-BuildRequires: pkgconfig(liblightdm-gobject-1)
-BuildRequires: pkgconfig(gtk+-3.0)
+BuildRequires:  gettext
+BuildRequires:  intltool
+BuildRequires:  pkgconfig(liblightdm-gobject-1)
+BuildRequires:  pkgconfig(gtk+-3.0)
 
-Obsoletes: lightdm-gtk-greeter < 1.1.5-4
-Provides:  lightdm-gtk-greeter = %{version}-%{release}
+Obsoletes:      lightdm-gtk-greeter < 1.1.5-4
+Provides:       lightdm-gtk-greeter = %{version}-%{release}
 
-Provides: lightdm-greeter = 1.2
+Provides:       lightdm-greeter = 1.2
 
+Requires:       lightdm%{?_isa}
 # for /usr/share/backgrounds/default.png
-Requires: desktop-backgrounds-compat
-Requires: lightdm
+Requires:       desktop-backgrounds-compat
 
 Requires(post): %{_sbindir}/update-alternatives
 Requires(postun): %{_sbindir}/update-alternatives
@@ -78,6 +78,10 @@ fi
 
 
 %changelog
+* Wed Oct 03 2012 Christoph Wickert <cwickert@fedoraproject.org> - 1.3.1-1
+- Update to 1.3.1
+- Make lightdm requirement arch specific
+
 * Thu Jul 19 2012 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1.1.6-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_18_Mass_Rebuild
 
