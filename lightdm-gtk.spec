@@ -1,7 +1,7 @@
 Summary:        LightDM GTK+ Greeter
 Name:           lightdm-gtk
 Version:        1.3.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 
 License:        GPLv3+
 URL:            https://launchpad.net/lightdm-gtk-greeter
@@ -23,6 +23,8 @@ Provides:       lightdm-greeter = 1.2
 Requires:       lightdm%{?_isa}
 # for /usr/share/backgrounds/default.png
 Requires:       desktop-backgrounds-compat
+# for /usr/share/pixmaps/fedora-logo-small.png
+Requires:       system-logos
 
 Requires(post): %{_sbindir}/update-alternatives
 Requires(postun): %{_sbindir}/update-alternatives
@@ -78,6 +80,9 @@ fi
 
 
 %changelog
+* Wed Nov 28 2012 Rex Dieter <rdieter@fedoraproject.org> 1.3.1-2
+- Requires: system-logos
+
 * Wed Oct 03 2012 Christoph Wickert <cwickert@fedoraproject.org> - 1.3.1-1
 - Update to 1.3.1
 - Make lightdm requirement arch specific
