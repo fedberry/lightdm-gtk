@@ -1,7 +1,7 @@
 Summary:        LightDM GTK+ Greeter
 Name:           lightdm-gtk
 Version:        1.3.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 
 License:        GPLv3+
 URL:            https://launchpad.net/lightdm-gtk-greeter
@@ -9,6 +9,10 @@ Source0:        https://launchpad.net/lightdm-gtk-greeter/1.4/%{version}/+downlo
 
 # tweak default config
 Patch1:         lightdm-gtk-greeter-1.3.1-fedora.patch
+
+## upstreamable patches
+# use HighContrast theme instead of awol HighContrastInverse
+Patch50:        lightdm-gtk-greeter-1.3.1-highcontrast.patch
 
 BuildRequires:  gettext
 BuildRequires:  intltool
@@ -23,6 +27,8 @@ Provides:       lightdm-greeter = 1.2
 Requires:       lightdm%{?_isa}
 # for /usr/share/backgrounds/default.png
 Requires:       desktop-backgrounds-compat
+# owner of HighContrast gtk/icon themes
+Requires:       gnome-themes-standard
 # for /usr/share/pixmaps/fedora-logo-small.png
 Requires:       system-logos
 
@@ -37,6 +43,7 @@ A LightDM greeter that uses the GTK+ toolkit.
 %setup -q -n lightdm-gtk-greeter-%{version}
 
 %patch1 -p1 -b .fedora
+%patch50 -p1 -b .highcontrast
 
 
 %build
@@ -80,6 +87,9 @@ fi
 
 
 %changelog
+* Fri Dec 07 2012 Rex Dieter <rdieter@fedoraproject.org> 1.3.1-3
+- missing icons in high-contrast mode (#881352)
+
 * Wed Nov 28 2012 Rex Dieter <rdieter@fedoraproject.org> 1.3.1-2
 - Requires: system-logos
 
