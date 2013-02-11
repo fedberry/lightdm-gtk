@@ -1,0 +1,12 @@
+diff -up lightdm-gtk-greeter-1.5.1/data/lightdm-gtk-greeter.conf.fedora lightdm-gtk-greeter-1.5.1/data/lightdm-gtk-greeter.conf
+--- lightdm-gtk-greeter-1.5.1/data/lightdm-gtk-greeter.conf.fedora	2013-02-10 07:19:17.000000000 -0600
++++ lightdm-gtk-greeter-1.5.1/data/lightdm-gtk-greeter.conf	2013-02-11 14:33:26.210597009 -0600
+@@ -11,7 +11,7 @@
+ # show-indicators = semi-colon ";" separated list of allowed indicator modules (e.g. indicator-sound.so)
+ #
+ [greeter]
+-#background=
++background=/usr/share/backgrounds/default.png
+ #theme-name=
+ #icon-theme-name=
+ #font-name=

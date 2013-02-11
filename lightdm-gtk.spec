@@ -1,14 +1,14 @@
 Summary:        LightDM GTK+ Greeter
 Name:           lightdm-gtk
-Version:        1.5.0
+Version:        1.5.1
 Release:        1%{?dist}
 
 License:        GPLv3+
 URL:            https://launchpad.net/lightdm-gtk-greeter
-Source0:        https://launchpad.net/lightdm-gtk-greeter/1.4/%{version}/+download/lightdm-gtk-greeter-%{version}.tar.gz
+Source0:        https://launchpad.net/lightdm-gtk-greeter/1.6/%{version}/+download/lightdm-gtk-greeter-%{version}.tar.gz
 
 # tweak default config
-Patch1:         lightdm-gtk-greeter-1.3.1-fedora.patch
+Patch1:         lightdm-gtk-greeter-1.5.1-fedora.patch
 
 ## upstreamable patches
 # use HighContrast theme instead of awol HighContrastInverse
@@ -87,6 +87,9 @@ fi
 
 
 %changelog
+* Mon Feb 11 2013 Rex Dieter <rdieter@fedoraproject.org> 1.5.1-1
+- 1.5.1
+
 * Mon Jan 28 2013 Gregor Tätzner <brummbq@fedoraproject.org> - 1.5.0-1
 - 1.5.0
 
