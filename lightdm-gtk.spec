@@ -10,10 +10,6 @@ Source0:        https://launchpad.net/lightdm-gtk-greeter/1.6/%{version}/+downlo
 # tweak default config
 Patch1:         lightdm-gtk-greeter-1.5.1-fedora.patch
 
-## upstreamable patches
-# use HighContrast theme instead of awol HighContrastInverse
-Patch50:        lightdm-gtk-greeter-1.3.1-highcontrast.patch
-
 BuildRequires:  gettext
 BuildRequires:  intltool
 BuildRequires:  pkgconfig(liblightdm-gobject-1)
@@ -43,7 +39,6 @@ A LightDM greeter that uses the GTK+ toolkit.
 %setup -q -n lightdm-gtk-greeter-%{version}
 
 %patch1 -p1 -b .fedora
-%patch50 -p1 -b .highcontrast
 
 
 %build
