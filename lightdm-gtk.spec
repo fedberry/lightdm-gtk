@@ -75,7 +75,6 @@ fi
 %doc ChangeLog COPYING NEWS README
 %config(noreplace) %{_sysconfdir}/lightdm/lightdm-gtk-greeter.conf
 %{_sbindir}/lightdm-gtk-greeter
-%{_datadir}/lightdm-gtk-greeter
 %{_datadir}/xgreeters/lightdm-gtk-greeter.desktop
 # own alternatives target
 %ghost %{_datadir}/xgreeters/lightdm-greeter.desktop
