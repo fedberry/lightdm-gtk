@@ -1,7 +1,10 @@
+
+%global _hardened_build 1
+
 Summary:        LightDM GTK+ Greeter
 Name:           lightdm-gtk
 Version:        1.5.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 
 License:        GPLv3+
 URL:            https://launchpad.net/lightdm-gtk-greeter
@@ -81,6 +84,9 @@ fi
 
 
 %changelog
+* Thu Apr 25 2013 Rex Dieter <rdieter@fedoraproject.org> 1.5.1-2
+- lightdm package should be built with PIE flags (#955147)
+
 * Mon Feb 11 2013 Rex Dieter <rdieter@fedoraproject.org> 1.5.1-1
 - 1.5.1
 
