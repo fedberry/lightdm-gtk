@@ -3,20 +3,20 @@
 
 Summary:        LightDM GTK+ Greeter
 Name:           lightdm-gtk
-Version:        1.5.1
-Release:        3%{?dist}
+Version:        1.5.2
+Release:        1%{?dist}
 
 License:        GPLv3+
 URL:            https://launchpad.net/lightdm-gtk-greeter
 Source0:        https://launchpad.net/lightdm-gtk-greeter/1.6/%{version}/+download/lightdm-gtk-greeter-%{version}.tar.gz
 
 # tweak default config
-Patch1:         lightdm-gtk-greeter-1.5.1-fedora.patch
+Patch1:         lightdm-gtk-greeter-1.5.2-fedora.patch
 
 ## upstreamable patches
 # avoid setting background when given bogus screen geometry
 # http://bugzilla.redhat.com/915986
-Patch50:        lightdm-gtk-greeter-1.5.1-bg_crash.patch
+Patch50:        lightdm-gtk-greeter-1.5.2-bg_crash.patch
 
 BuildRequires:  gettext
 BuildRequires:  intltool
@@ -90,6 +90,9 @@ fi
 
 
 %changelog
+* Tue May 14 2013 Rex Dieter <rdieter@fedoraproject.org> 1.5.2-1
+- lightdm-gtk-1.5.2 is available (#962765)
+
 * Mon May 06 2013 Rex Dieter <rdieter@fedoraproject.org> 1.5.1-3
 - avoid crash in gdk_cairo_set_source_pixbuf with bogus geometry values (#915986)
 
