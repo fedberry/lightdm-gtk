@@ -3,7 +3,7 @@
 
 Summary:        LightDM GTK+ Greeter
 Name:           lightdm-gtk
-Version:        1.5.2
+Version:        1.6.0
 Release:        1%{?dist}
 
 License:        GPLv3+
@@ -90,6 +90,9 @@ fi
 
 
 %changelog
+* Mon Jun 03 2013 Christoph Wickert <cwickert@fedoraproject.org> - 1.6.0-1
+- Update to 1.6.0 (#962765)
+
 * Tue May 14 2013 Rex Dieter <rdieter@fedoraproject.org> 1.5.2-1
 - lightdm-gtk-1.5.2 is available (#962765)
 
