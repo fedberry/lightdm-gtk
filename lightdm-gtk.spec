@@ -4,7 +4,7 @@
 Summary:        LightDM GTK+ Greeter
 Name:           lightdm-gtk
 Version:        1.6.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 
 License:        GPLv3+
 URL:            https://launchpad.net/lightdm-gtk-greeter
@@ -52,9 +52,10 @@ A LightDM greeter that uses the GTK+ toolkit.
 
 %build
 %configure \
-  --disable-static
+  --disable-silent-rules \
+  --disable-static \
 
-make %{?_smp_mflags} V=1
+make %{?_smp_mflags}
 
 
 %install
@@ -90,6 +91,9 @@ fi
 
 
 %changelog
+* Sun Aug 18 2013 Rex Dieter <rdieter@fedoraproject.org> 1.6.0-3
+- rebuild (lightdm)
+
 * Sat Aug 03 2013 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1.6.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_20_Mass_Rebuild
 
