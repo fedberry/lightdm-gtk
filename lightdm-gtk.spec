@@ -4,7 +4,7 @@
 Summary:        LightDM GTK+ Greeter
 Name:           lightdm-gtk
 Version:        1.6.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 
 License:        GPLv3+
 URL:            https://launchpad.net/lightdm-gtk-greeter
@@ -17,6 +17,9 @@ Patch1:         lightdm-gtk-greeter-1.5.2-fedora.patch
 # avoid setting background when given bogus screen geometry
 # http://bugzilla.redhat.com/915986
 Patch50:        lightdm-gtk-greeter-1.5.2-bg_crash.patch
+# lightdm-gtk-greeter segfaults if session last used is uninstalled (and has a silly cache location)
+# http://bugzilla.redhat.com/1002782
+Patch51:        lightdm-gtk-greeter-validate_session.patch
 
 BuildRequires:  gettext
 BuildRequires:  intltool
@@ -48,6 +51,7 @@ A LightDM greeter that uses the GTK+ toolkit.
 
 %patch1 -p1 -b .fedora
 %patch50 -p1 -b .bg_crash
+%patch51 -p1 -b .validate_session
 
 
 %build
@@ -91,6 +95,9 @@ fi
 
 
 %changelog
+* Tue Oct 08 2013 Rex Dieter <rdieter@fedoraproject.org> 1.6.1-2
+- lightdm-gtk-greeter segfaults if session last used is uninstalled (#1002782)
+
 * Thu Sep 19 2013 Rex Dieter <rdieter@fedoraproject.org> 1.6.1-1
 - lightdm-gtk-1.6.1 (#1009531)
 

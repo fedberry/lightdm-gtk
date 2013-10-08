@@ -1,0 +1,41 @@
+diff -up lightdm-gtk-greeter-1.6.1/src/lightdm-gtk-greeter.c.foo lightdm-gtk-greeter-1.6.1/src/lightdm-gtk-greeter.c
+--- lightdm-gtk-greeter-1.6.1/src/lightdm-gtk-greeter.c.foo	2013-10-08 15:25:58.582009118 -0500
++++ lightdm-gtk-greeter-1.6.1/src/lightdm-gtk-greeter.c	2013-10-08 15:25:58.585009064 -0500
+@@ -290,6 +290,7 @@ set_session (const gchar *session)
+     const gchar *default_session;
+     gchar *last_session;
+     GList *menu_items, *menu_iter;
++    GList *items, *item;
+     
+     menu_items = gtk_container_get_children(GTK_CONTAINER(session_menu));
+     
+@@ -314,9 +315,26 @@ set_session (const gchar *session)
+     last_session = g_key_file_get_value (state, "greeter", "last-session", NULL);
+     if (last_session && g_strcmp0 (session, last_session) != 0)
+     {
+-        set_session (last_session);
+-        g_free (last_session);
+-        return;
++          /* Go thru all sessions and compare them to our last_session otherwise we can get a segfault
++           * if last_session is set to a non-existing or removed session
++           */
++           items = lightdm_get_sessions ();
++           for (item = items; item; item = item->next)
++           {
++                LightDMSession *session = item->data;
++                gchar *s;
++                gboolean matched;
++                s = lightdm_session_get_key (session);
++                matched = strcmp (s, last_session) == 0;
++                s = NULL;
++                g_free(s);
++                if (matched)
++                {
++                    set_session (last_session);
++                    g_free (last_session);
++                    return;
++                }
++           }
+     }
+     g_free (last_session);
+     
