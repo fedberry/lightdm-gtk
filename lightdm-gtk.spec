@@ -3,15 +3,15 @@
 
 Summary:        LightDM GTK+ Greeter
 Name:           lightdm-gtk
-Version:        1.6.1
-Release:        3%{?dist}
+Version:        1.8.1
+Release:        1%{?dist}
 
 License:        GPLv3+
 URL:            https://launchpad.net/lightdm-gtk-greeter
-Source0:        https://launchpad.net/lightdm-gtk-greeter/1.6/%{version}/+download/lightdm-gtk-greeter-%{version}.tar.gz
+Source0:        https://launchpad.net/lightdm-gtk-greeter/1.8/%{version}/+download/lightdm-gtk-greeter-%{version}.tar.gz
 
 # tweak default config
-Patch1:         lightdm-gtk-greeter-1.5.2-fedora.patch
+Patch1:         lightdm-gtk-greeter-1.8.1-fedora.patch
 
 ## upstreamable patches
 # avoid setting background when given bogus screen geometry
@@ -23,9 +23,6 @@ Patch51:        lightdm-gtk-greeter-validate_session.patch
 
 
 ## upstream patches
-# http://bugzilla.redhat.com/1049420
-# reportedly committed/fixed in 1.7+
-Patch200:       lightdm-gtk-greeter-CVE-2014-0979.patch
 
 BuildRequires:  gettext
 BuildRequires:  intltool
@@ -58,7 +55,6 @@ A LightDM greeter that uses the GTK+ toolkit.
 %patch1 -p1 -b .fedora
 %patch50 -p1 -b .bg_crash
 %patch51 -p1 -b .validate_session
-%patch200 -p1 -b .CVE-2014-0979
 
 
 %build
@@ -79,6 +75,7 @@ touch %{buildroot}%{_datadir}/xgreeters/lightdm-greeter.desktop
 
 
 %post
+touch --no-create %{_datadir}/icons/hicolor &> /dev/null ||:
 %{_sbindir}/update-alternatives \
   --install %{_datadir}/xgreeters/lightdm-greeter.desktop \
   lightdm-greeter \
@@ -87,10 +84,16 @@ touch %{buildroot}%{_datadir}/xgreeters/lightdm-greeter.desktop
 
 %postun
 if [ $1 -eq 0 ]; then
+touch --no-create %{_datadir}/icons/hicolor &> /dev/null ||:
+gtk-update-icon-cache %{_datadir}/icons/hicolor &> /dev/null || :
 %{_sbindir}/update-alternatives \
   --remove lightdm-greeter \
   %{_datadir}/xgreeters/lightdm-gtk-greeter.desktop
 fi
+
+%posttrans
+gtk-update-icon-cache %{_datadir}/icons/hicolor &> /dev/null || :
+
 
 %files -f lightdm-gtk-greeter.lang
 %doc ChangeLog COPYING NEWS README
@@ -99,9 +102,13 @@ fi
 %{_datadir}/xgreeters/lightdm-gtk-greeter.desktop
 # own alternatives target
 %ghost %{_datadir}/xgreeters/lightdm-greeter.desktop
+%{_datadir}/icons/hicolor/scalable/places/*badge-symbolic.svg
 
 
 %changelog
+* Thu Feb 20 2014 Rex Dieter <rdieter@fedoraproject.org> 1.8.1-1
+- 1.8.1
+
 * Mon Jan 27 2014 Rex Dieter <rdieter@fedoraproject.org> 1.6.1-3
 - CVE-2014-0979 (#149420,1049422)
 

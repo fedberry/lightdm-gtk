@@ -1,0 +1,12 @@
+diff -up lightdm-gtk-greeter-1.8.1/data/lightdm-gtk-greeter.conf.fedora lightdm-gtk-greeter-1.8.1/data/lightdm-gtk-greeter.conf
+--- lightdm-gtk-greeter-1.8.1/data/lightdm-gtk-greeter.conf.fedora	2014-02-20 06:49:39.444554362 -0600
++++ lightdm-gtk-greeter-1.8.1/data/lightdm-gtk-greeter.conf	2014-02-20 06:50:30.212012176 -0600
+@@ -16,7 +16,7 @@
+ # screensaver-timeout = Timeout (in seconds) until the screen blanks when the greeter is called as lockscreen
+ # 
+ [greeter]
+-#background=
++background=/usr/share/backgrounds/default.png
+ #theme-name=
+ #icon-theme-name=
+ #font-name=

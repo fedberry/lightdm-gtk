@@ -1,15 +1,15 @@
-diff -up lightdm-gtk-greeter-1.6.1/src/lightdm-gtk-greeter.c.foo lightdm-gtk-greeter-1.6.1/src/lightdm-gtk-greeter.c
---- lightdm-gtk-greeter-1.6.1/src/lightdm-gtk-greeter.c.foo	2013-10-08 15:25:58.582009118 -0500
-+++ lightdm-gtk-greeter-1.6.1/src/lightdm-gtk-greeter.c	2013-10-08 15:25:58.585009064 -0500
-@@ -290,6 +290,7 @@ set_session (const gchar *session)
+diff -up lightdm-gtk-greeter-1.8.1/src/lightdm-gtk-greeter.c.validate_session lightdm-gtk-greeter-1.8.1/src/lightdm-gtk-greeter.c
+--- lightdm-gtk-greeter-1.8.1/src/lightdm-gtk-greeter.c.validate_session	2014-02-20 06:50:56.371732796 -0600
++++ lightdm-gtk-greeter-1.8.1/src/lightdm-gtk-greeter.c	2014-02-20 06:53:41.145973044 -0600
+@@ -528,6 +528,7 @@ set_session (const gchar *session)
      const gchar *default_session;
      gchar *last_session;
      GList *menu_items, *menu_iter;
 +    GList *items, *item;
-     
-     menu_items = gtk_container_get_children(GTK_CONTAINER(session_menu));
-     
-@@ -314,9 +315,26 @@ set_session (const gchar *session)
+ #if GTK_CHECK_VERSION (3, 0, 0)
+     GtkIconTheme *icon_theme = gtk_icon_theme_get_default();
+ #endif
+@@ -569,9 +570,26 @@ set_session (const gchar *session)
      last_session = g_key_file_get_value (state, "greeter", "last-session", NULL);
      if (last_session && g_strcmp0 (session, last_session) != 0)
      {
