@@ -3,7 +3,7 @@
 
 Summary:        LightDM GTK+ Greeter
 Name:           lightdm-gtk
-Version:        1.8.1
+Version:        1.8.2
 Release:        1%{?dist}
 
 License:        GPLv3+
@@ -16,10 +16,7 @@ Patch1:         lightdm-gtk-greeter-1.8.1-fedora.patch
 ## upstreamable patches
 # avoid setting background when given bogus screen geometry
 # http://bugzilla.redhat.com/915986
-Patch50:        lightdm-gtk-greeter-1.5.2-bg_crash.patch
-# lightdm-gtk-greeter segfaults if session last used is uninstalled (and has a silly cache location)
-# http://bugzilla.redhat.com/1002782
-Patch51:        lightdm-gtk-greeter-validate_session.patch
+Patch50:        lightdm-gtk-greeter-1.8.2-bg_crash.patch
 
 
 ## upstream patches
@@ -54,7 +51,6 @@ A LightDM greeter that uses the GTK+ toolkit.
 
 %patch1 -p1 -b .fedora
 %patch50 -p1 -b .bg_crash
-%patch51 -p1 -b .validate_session
 
 
 %build
@@ -106,6 +102,9 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &> /dev/null || :
 
 
 %changelog
+* Tue Mar 04 2014 Rex Dieter <rdieter@fedoraproject.org> 1.8.2-1
+- 1.8.2 (#1047209)
+
 * Thu Feb 20 2014 Rex Dieter <rdieter@fedoraproject.org> 1.8.1-1
 - 1.8.1
 
