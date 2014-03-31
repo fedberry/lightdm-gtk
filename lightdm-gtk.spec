@@ -3,7 +3,7 @@
 
 Summary:        LightDM GTK+ Greeter
 Name:           lightdm-gtk
-Version:        1.8.2
+Version:        1.8.4
 Release:        1%{?dist}
 
 License:        GPLv3+
@@ -102,6 +102,9 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &> /dev/null || :
 
 
 %changelog
+* Mon Mar 31 2014 Rex Dieter <rdieter@fedoraproject.org> 1.8.4-1
+- 1.8.4 (#1076529)
+
 * Tue Mar 04 2014 Rex Dieter <rdieter@fedoraproject.org> 1.8.2-1
 - 1.8.2 (#1047209)
 
