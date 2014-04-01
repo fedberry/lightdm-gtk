@@ -69,6 +69,9 @@ make install DESTDIR=%{buildroot}
 # own alternatives target
 touch %{buildroot}%{_datadir}/xgreeters/lightdm-greeter.desktop
 
+## unpackaged files
+rm -fv %{buildroot}%{_docdir}/lightdm-gtk-greeter/sample-lightdm-gtk-greeter.css
+
 
 %post
 touch --no-create %{_datadir}/icons/hicolor &> /dev/null ||:
@@ -93,6 +96,7 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &> /dev/null || :
 
 %files -f lightdm-gtk-greeter.lang
 %doc ChangeLog COPYING NEWS README
+%doc data/sample-lightdm-gtk-greeter.css
 %config(noreplace) %{_sysconfdir}/lightdm/lightdm-gtk-greeter.conf
 %{_sbindir}/lightdm-gtk-greeter
 %{_datadir}/xgreeters/lightdm-gtk-greeter.desktop
