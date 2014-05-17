@@ -4,14 +4,18 @@
 Summary:        LightDM GTK+ Greeter
 Name:           lightdm-gtk
 Version:        1.6.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 
 License:        GPLv3+
 URL:            https://launchpad.net/lightdm-gtk-greeter
 Source0:        https://launchpad.net/lightdm-gtk-greeter/1.6/%{version}/+download/lightdm-gtk-greeter-%{version}.tar.gz
 
 # tweak default config
+%if 0%{?fedora}
 Patch1:         lightdm-gtk-greeter-1.5.2-fedora.patch
+%else
+Patch1:         lightdm-gtk-greeter-1.5.2-redhat.patch
+%endif
 
 ## upstreamable patches
 # avoid setting background when given bogus screen geometry
@@ -32,8 +36,10 @@ Provides:       lightdm-gtk-greeter = %{version}-%{release}
 Provides:       lightdm-greeter = 1.2
 
 Requires:       lightdm%{?_isa}
+%if 0%{?fedora}
 # for /usr/share/backgrounds/default.png
 Requires:       desktop-backgrounds-compat
+%endif
 # owner of HighContrast gtk/icon themes
 Requires:       gnome-themes-standard
 # for /usr/share/pixmaps/fedora-logo-small.png
@@ -49,7 +55,7 @@ A LightDM greeter that uses the GTK+ toolkit.
 %prep
 %setup -q -n lightdm-gtk-greeter-%{version}
 
-%patch1 -p1 -b .fedora
+%patch1 -p1 -b .greeter_background
 %patch50 -p1 -b .bg_crash
 %patch51 -p1 -b .validate_session
 
@@ -95,6 +101,9 @@ fi
 
 
 %changelog
+* Sat May 17 2014 Leigh Scott <leigh123linux@googlemail.com> - 1.6.1-3
+- change background for epel
+
 * Tue Oct 08 2013 Rex Dieter <rdieter@fedoraproject.org> 1.6.1-2
 - lightdm-gtk-greeter segfaults if session last used is uninstalled (#1002782)
 
