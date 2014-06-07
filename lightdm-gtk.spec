@@ -4,7 +4,7 @@
 Summary:        LightDM GTK+ Greeter
 Name:           lightdm-gtk
 Version:        1.8.5
-Release:        1%{?dist}
+Release:        2%{?dist}
 
 License:        GPLv3+
 URL:            https://launchpad.net/lightdm-gtk-greeter
@@ -106,6 +106,9 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &> /dev/null || :
 
 
 %changelog
+* Sat Jun 07 2014 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1.8.5-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_21_Mass_Rebuild
+
 * Mon May 05 2014 Rex Dieter <rdieter@fedoraproject.org> 1.8.5-1
 - 1.8.5 (#1094437)
 
