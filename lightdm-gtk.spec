@@ -4,7 +4,7 @@
 Summary:        LightDM GTK+ Greeter
 Name:           lightdm-gtk
 Version:        1.8.5
-Release:        2%{?dist}
+Release:        3%{?dist}
 
 License:        GPLv3+
 URL:            https://launchpad.net/lightdm-gtk-greeter
@@ -34,6 +34,9 @@ Provides:       lightdm-greeter = 1.2
 Requires:       lightdm%{?_isa}
 # for /usr/share/backgrounds/default.png
 Requires:       desktop-backgrounds-compat
+# standard icons, not yet provided by adwaita
+# https://bugzilla.redhat.com/1128697
+Requires:       gnome-icon-theme
 # owner of HighContrast gtk/icon themes
 Requires:       gnome-themes-standard
 # for /usr/share/pixmaps/fedora-logo-small.png
@@ -106,6 +109,9 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &> /dev/null || :
 
 
 %changelog
+* Mon Aug 11 2014 Rex Dieter <rdieter@fedoraproject.org> 1.8.5-3
+- missing icons, +Requires: gnome-icon-theme (#1128697)
+
 * Sat Jun 07 2014 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1.8.5-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_21_Mass_Rebuild
 
