@@ -162,14 +162,14 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &> /dev/null || :
 %files common -f lightdm-gtk-greeter.lang
 %{_datadir}/icons/hicolor/scalable/places/*badge-symbolic.svg
 
-%post
+%post -n lightdm-gtk2
 %{_sbindir}/update-alternatives \
   --install %{_datadir}/xgreeters/lightdm-greeter.desktop \
   lightdm-greeter \
   %{_datadir}/xgreeters/lightdm-gtk-greeter.desktop \
   15
 
-%postun
+%postun -n lightdm-gtk2
 if [ $1 -eq 0 ]; then
 %{_sbindir}/update-alternatives \
   --remove lightdm-greeter \
