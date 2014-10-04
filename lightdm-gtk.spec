@@ -4,7 +4,7 @@
 Summary:        LightDM GTK3 Greeter
 Name:           lightdm-gtk
 Version:        1.8.5
-Release:        5%{?dist}
+Release:        6%{?dist}
 
 License:        GPLv3+
 URL:            https://launchpad.net/lightdm-gtk-greeter
@@ -62,6 +62,8 @@ Summary:        LightDM GTK2 Greeter
 Provides:       lightdm-greeter = 1.2
 Requires:       %{name}-common = %{version}-%{release}
 Requires:       lightdm%{?_isa}
+Requires(post): %{_sbindir}/update-alternatives
+Requires(postun): %{_sbindir}/update-alternatives
 %description -n lightdm-gtk2
 A LightDM greeter that uses the GTK2 toolkit.
 
@@ -160,6 +162,20 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &> /dev/null || :
 %files common -f lightdm-gtk-greeter.lang
 %{_datadir}/icons/hicolor/scalable/places/*badge-symbolic.svg
 
+%post
+%{_sbindir}/update-alternatives \
+  --install %{_datadir}/xgreeters/lightdm-greeter.desktop \
+  lightdm-greeter \
+  %{_datadir}/xgreeters/lightdm-gtk-greeter.desktop \
+  15
+
+%postun
+if [ $1 -eq 0 ]; then
+%{_sbindir}/update-alternatives \
+  --remove lightdm-greeter \
+  %{_datadir}/xgreeters/lightdm-gtk2-greeter.desktop
+fi
+
 %files -n lightdm-gtk2 -f lightdm-gtk-greeter.lang
 %doc ChangeLog COPYING NEWS README
 %config(noreplace) %{_sysconfdir}/lightdm/lightdm-gtk-greeter.conf
@@ -168,6 +184,9 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &> /dev/null || :
 
 
 %changelog
+* Sat Oct 04 2014 Rex Dieter <rdieter@fedoraproject.org> 1.8.5-6
+- lightdm-gtk2: support alternatives (for default lightdm greeter)
+
 * Sat Oct 04 2014 Rex Dieter <rdieter@fedoraproject.org> 1.8.5-5
 - lightdm-gtk2, -common subpkgs
 
