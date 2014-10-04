@@ -1,0 +1,12 @@
+diff -up lightdm-gtk-greeter-1.8.5/data/badges/Makefile.am.vpath lightdm-gtk-greeter-1.8.5/data/badges/Makefile.am
+--- lightdm-gtk-greeter-1.8.5/data/badges/Makefile.am.vpath	2014-05-04 07:02:00.000000000 -0500
++++ lightdm-gtk-greeter-1.8.5/data/badges/Makefile.am	2014-10-04 10:07:51.856937574 -0500
+@@ -4,7 +4,7 @@ EXTRA_DIST =				\
+ Datadir = $(datadir)/icons/hicolor/scalable/places
+ 
+ Data_DATA =				\
+-	$(wildcard *.svg)
++	$(wildcard $(srcdir)/*.svg)
+ 
+ gtk_update_icon_cache = gtk-update-icon-cache -f -t $(datadir)/icons/hicolor
+ 
