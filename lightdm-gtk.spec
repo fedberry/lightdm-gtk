@@ -22,7 +22,6 @@ Patch51:        lightdm-gtk-greeter-1.8.5-vpath.patch
 
 ## upstream patches
 
-BuildRequires:  automake libtool
 BuildRequires:  gettext
 BuildRequires:  intltool
 BuildRequires:  pkgconfig(liblightdm-gobject-1)
@@ -74,9 +73,6 @@ A LightDM greeter that uses the GTK2 toolkit.
 %patch51 -p1 -b .vpath
 
 %patch1 -p1 -b .fedora
-
-# required by patch51
-autoreconf -f -i
 
 
 %build
