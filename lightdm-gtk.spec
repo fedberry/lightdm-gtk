@@ -4,7 +4,7 @@
 Summary:        LightDM GTK3 Greeter
 Name:           lightdm-gtk
 Version:        1.8.5
-Release:        6%{?dist}
+Release:        7%{?dist}
 
 License:        GPLv3+
 URL:            https://launchpad.net/lightdm-gtk-greeter
@@ -156,7 +156,7 @@ touch --no-create %{_datadir}/icons/hicolor &> /dev/null ||:
 gtk-update-icon-cache %{_datadir}/icons/hicolor &> /dev/null || :
 fi
 
-%posttrans
+%posttrans common
 gtk-update-icon-cache %{_datadir}/icons/hicolor &> /dev/null || :
 
 %files common -f lightdm-gtk-greeter.lang
@@ -166,7 +166,7 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &> /dev/null || :
 %{_sbindir}/update-alternatives \
   --install %{_datadir}/xgreeters/lightdm-greeter.desktop \
   lightdm-greeter \
-  %{_datadir}/xgreeters/lightdm-gtk-greeter.desktop \
+  %{_datadir}/xgreeters/lightdm-gtk2-greeter.desktop \
   15
 
 %postun -n lightdm-gtk2
@@ -176,7 +176,7 @@ if [ $1 -eq 0 ]; then
   %{_datadir}/xgreeters/lightdm-gtk2-greeter.desktop
 fi
 
-%files -n lightdm-gtk2 -f lightdm-gtk-greeter.lang
+%files -n lightdm-gtk2
 %doc ChangeLog COPYING NEWS README
 %config(noreplace) %{_sysconfdir}/lightdm/lightdm-gtk-greeter.conf
 %{_sbindir}/lightdm-gtk2-greeter
@@ -184,6 +184,10 @@ fi
 
 
 %changelog
+* Sun Oct 05 2014 Rex Dieter <rdieter@fedoraproject.org> 1.8.5-7
+- -gtk2: fix alternatives, omit dup'd translations
+- -common: fix %%posttrans icon scriptlet
+
 * Sat Oct 04 2014 Rex Dieter <rdieter@fedoraproject.org> 1.8.5-6
 - lightdm-gtk2: support alternatives (for default lightdm greeter)
 
