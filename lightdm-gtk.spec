@@ -4,7 +4,7 @@
 Summary:        LightDM GTK3 Greeter
 Name:           lightdm-gtk
 Version:        1.8.5
-Release:        7%{?dist}
+Release:        8%{?dist}
 
 License:        GPLv3+
 URL:            https://launchpad.net/lightdm-gtk-greeter
@@ -117,6 +117,9 @@ make install DESTDIR=%{buildroot} -C %{_target_platform}
 
 %find_lang lightdm-gtk-greeter 
 
+# create/own GREETER_DATA_DIR
+mkdir -p %{buildroot}%{_datadir}/lightdm-gtk-greeter/
+
 # own alternatives target
 touch %{buildroot}%{_datadir}/xgreeters/lightdm-greeter.desktop
 
@@ -144,6 +147,7 @@ fi
 %config(noreplace) %{_sysconfdir}/lightdm/lightdm-gtk-greeter.conf
 %{_sbindir}/lightdm-gtk-greeter
 %{_datadir}/xgreeters/lightdm-gtk-greeter.desktop
+%dir %{_datadir}/lightdm-gtk-greeter/
 # own alternatives target
 %ghost %{_datadir}/xgreeters/lightdm-greeter.desktop
 
@@ -180,10 +184,18 @@ fi
 %doc ChangeLog COPYING NEWS README
 %config(noreplace) %{_sysconfdir}/lightdm/lightdm-gtk-greeter.conf
 %{_sbindir}/lightdm-gtk2-greeter
+%dir %{_datadir}/lightdm-gtk-greeter/
 %{_datadir}/xgreeters/lightdm-gtk2-greeter.desktop
+# own alternatives target
+%ghost %{_datadir}/xgreeters/lightdm-greeter.desktop
 
 
 %changelog
+* Sun Oct 05 2014 Rex Dieter <rdieter@fedoraproject.org> 
+- 1.8.5-8
+- create/own %%{_datadir}/lightdm-gtk-greeter/
+- -gtk2: own lightdm-greeter.desktop alternatives target
+
 * Sun Oct 05 2014 Rex Dieter <rdieter@fedoraproject.org> 1.8.5-7
 - -gtk2: fix alternatives, omit dup'd translations
 - -common: fix %%posttrans icon scriptlet
