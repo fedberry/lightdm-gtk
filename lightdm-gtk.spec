@@ -4,7 +4,7 @@
 Summary:        LightDM GTK3 Greeter
 Name:           lightdm-gtk
 Version:        1.8.5
-Release:        8%{?dist}
+Release:        9%{?dist}
 
 License:        GPLv3+
 URL:            https://launchpad.net/lightdm-gtk-greeter
@@ -21,6 +21,9 @@ Patch50:        lightdm-gtk-greeter-1.8.5-bg_crash.patch
 Patch51:        lightdm-gtk-greeter-1.8.5-vpath.patch
 
 ## upstream patches
+# backport fix for mouse cursor
+# http://bazaar.launchpad.net/~lightdm-gtk-greeter-team/lightdm-gtk-greeter/trunk/revision/298
+Patch100:  lightdm-gtk-greeter-1.8.5-lp#1024482.patch
 
 BuildRequires:  gettext
 BuildRequires:  intltool
@@ -70,6 +73,8 @@ A LightDM greeter that uses the GTK2 toolkit.
 
 %prep
 %setup -q -n lightdm-gtk-greeter-%{version}
+
+%patch100 -p1 -b .lp#1024482
 
 %patch50 -p1 -b .bg_crash
 %patch51 -p1 -b .vpath
@@ -191,8 +196,10 @@ fi
 
 
 %changelog
-* Sun Oct 05 2014 Rex Dieter <rdieter@fedoraproject.org> 
-- 1.8.5-8
+* Mon Oct 06 2014 Rex Dieter <rdieter@fedoraproject.org> 1.8.5-9
+- cursor theme doesn't change (#989152)
+
+* Sun Oct 05 2014 Rex Dieter <rdieter@fedoraproject.org> - 1.8.5-8
 - create/own %%{_datadir}/lightdm-gtk-greeter/
 - -gtk2: own lightdm-greeter.desktop alternatives target
 
