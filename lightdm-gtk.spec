@@ -4,7 +4,7 @@
 Summary:        LightDM GTK3 Greeter
 Name:           lightdm-gtk
 Version:        1.8.5
-Release:        9%{?dist}
+Release:        10%{?dist}
 
 License:        GPLv3+
 URL:            https://launchpad.net/lightdm-gtk-greeter
@@ -49,9 +49,6 @@ Summary: Common files for %{name}
 Conflicts: lightdm-gtk < 1.8.5-5
 # for /usr/share/backgrounds/default.png
 Requires:       desktop-backgrounds-compat
-# standard icons, not yet provided by adwaita
-# https://bugzilla.redhat.com/1128697
-Requires:       gnome-icon-theme
 # owner of HighContrast gtk/icon themes
 Requires:       gnome-themes-standard
 # for /usr/share/pixmaps/fedora-logo-small.png
@@ -196,6 +193,9 @@ fi
 
 
 %changelog
+* Fri Nov 07 2014 Rex Dieter <rdieter@fedoraproject.org> 1.8.5-10
+- revert +Requires: gnome-icon-theme, adwaita reportedly good enough now (#1128697)
+
 * Mon Oct 06 2014 Rex Dieter <rdieter@fedoraproject.org> 1.8.5-9
 - cursor theme doesn't change (#989152)
 
