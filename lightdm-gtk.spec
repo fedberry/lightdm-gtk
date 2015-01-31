@@ -4,7 +4,7 @@
 Summary:        LightDM GTK3 Greeter
 Name:           lightdm-gtk
 Version:        1.8.5
-Release:        10%{?dist}
+Release:        11%{?dist}
 
 License:        GPLv3+
 URL:            https://launchpad.net/lightdm-gtk-greeter
@@ -24,6 +24,9 @@ Patch51:        lightdm-gtk-greeter-1.8.5-vpath.patch
 # backport fix for mouse cursor
 # http://bazaar.launchpad.net/~lightdm-gtk-greeter-team/lightdm-gtk-greeter/trunk/revision/298
 Patch100:  lightdm-gtk-greeter-1.8.5-lp#1024482.patch
+# add badges for Mate and Window Maker
+# http://bazaar.launchpad.net/~lightdm-gtk-greeter-team/lightdm-gtk-greeter/trunk/revision/311
+Patch101:  lightdm-gtk-greeter-1.9.1-badges.patch
 
 BuildRequires:  gettext
 BuildRequires:  intltool
@@ -72,6 +75,7 @@ A LightDM greeter that uses the GTK2 toolkit.
 %setup -q -n lightdm-gtk-greeter-%{version}
 
 %patch100 -p1 -b .lp#1024482
+%patch101 -p0 -b .badges
 
 %patch50 -p1 -b .bg_crash
 %patch51 -p1 -b .vpath
@@ -193,6 +197,9 @@ fi
 
 
 %changelog
+* Sat Jan 31 2015 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.8.5-11
+- add badges for Mate and Window Maker (#1178498)
+
 * Fri Nov 07 2014 Rex Dieter <rdieter@fedoraproject.org> 1.8.5-10
 - revert +Requires: gnome-icon-theme, adwaita reportedly good enough now (#1128697)
 
