@@ -4,7 +4,7 @@
 Summary:        LightDM GTK3 Greeter
 Name:           lightdm-gtk
 Version:        1.8.5
-Release:        11%{?dist}
+Release:        12%{?dist}
 
 License:        GPLv3+
 URL:            https://launchpad.net/lightdm-gtk-greeter
@@ -23,10 +23,12 @@ Patch51:        lightdm-gtk-greeter-1.8.5-vpath.patch
 ## upstream patches
 # backport fix for mouse cursor
 # http://bazaar.launchpad.net/~lightdm-gtk-greeter-team/lightdm-gtk-greeter/trunk/revision/298
-Patch100:  lightdm-gtk-greeter-1.8.5-lp#1024482.patch
+Patch100:       lightdm-gtk-greeter-1.8.5-lp#1024482.patch
 # add badges for Mate and Window Maker
 # http://bazaar.launchpad.net/~lightdm-gtk-greeter-team/lightdm-gtk-greeter/trunk/revision/311
-Patch101:  lightdm-gtk-greeter-1.9.1-badges.patch
+Patch101:       lightdm-gtk-greeter-1.9.1-badges.patch
+# https://bugzilla.redhat.com/show_bug.cgi?id=1178498
+Patch102:       lightdm-gtk-greeter-1.8.5-add-cinnamon-badges.patch
 
 BuildRequires:  gettext
 BuildRequires:  intltool
@@ -76,6 +78,7 @@ A LightDM greeter that uses the GTK2 toolkit.
 
 %patch100 -p1 -b .lp#1024482
 %patch101 -p0 -b .badges
+%patch102 -p0 -b .cinnamon-badges
 
 %patch50 -p1 -b .bg_crash
 %patch51 -p1 -b .vpath
@@ -197,6 +200,9 @@ fi
 
 
 %changelog
+* Tue Feb 17 2015 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.8.5-12
+- add cinnamon badge
+
 * Sat Jan 31 2015 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.8.5-11
 - add badges for Mate and Window Maker (#1178498)
 
