@@ -4,7 +4,7 @@
 Summary:        LightDM GTK3 Greeter
 Name:           lightdm-gtk
 Version:        1.8.5
-Release:        12%{?dist}
+Release:        13%{?dist}
 
 License:        GPLv3+
 URL:            https://launchpad.net/lightdm-gtk-greeter
@@ -78,7 +78,7 @@ A LightDM greeter that uses the GTK2 toolkit.
 
 %patch100 -p1 -b .lp#1024482
 %patch101 -p0 -b .badges
-%patch102 -p0 -b .cinnamon-badges
+%patch102 -p1 -b .cinnamon-badges
 
 %patch50 -p1 -b .bg_crash
 %patch51 -p1 -b .vpath
@@ -200,6 +200,9 @@ fi
 
 
 %changelog
+* Fri Feb 19 2015 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.8.5-13
+- fix build of cinnamon badge
+
 * Tue Feb 17 2015 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.8.5-12
 - add cinnamon badge
 
