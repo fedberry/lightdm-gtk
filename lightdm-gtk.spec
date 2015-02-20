@@ -4,7 +4,7 @@
 Summary:        LightDM GTK3 Greeter
 Name:           lightdm-gtk
 Version:        1.8.5
-Release:        13%{?dist}
+Release:        14%{?dist}
 
 License:        GPLv3+
 URL:            https://launchpad.net/lightdm-gtk-greeter
@@ -12,6 +12,7 @@ Source0:        https://launchpad.net/lightdm-gtk-greeter/1.8/%{version}/+downlo
 
 # tweak default config
 Patch1:         lightdm-gtk-greeter-1.8.1-fedora.patch
+Patch2:         lightdm-gtk-greeter-1.8.1-rhel7.patch
 
 ## upstreamable patches
 # avoid setting background when given bogus screen geometry
@@ -52,12 +53,15 @@ A LightDM greeter that uses the GTK3 toolkit.
 Summary: Common files for %{name}
 # when -common was split out
 Conflicts: lightdm-gtk < 1.8.5-5
-# for /usr/share/backgrounds/default.png
+# for default background/wallpaper
+%if 0%{?fedora}
 Requires:       desktop-backgrounds-compat
+%endif
+%if 0%{?rhel}
+Requires:       system-logos
+%endif
 # owner of HighContrast gtk/icon themes
 Requires:       gnome-themes-standard
-# for /usr/share/pixmaps/fedora-logo-small.png
-Requires:       system-logos
 BuildArch:      noarch
 %description common
 %{summary}.
@@ -83,7 +87,11 @@ A LightDM greeter that uses the GTK2 toolkit.
 %patch50 -p1 -b .bg_crash
 %patch51 -p1 -b .vpath
 
+%if 0%{?rhel} > 6
+%patch2 -p1 -b .rhel7
+%else
 %patch1 -p1 -b .fedora
+%endif
 
 
 %build
@@ -200,6 +208,10 @@ fi
 
 
 %changelog
+* Fri Feb 20 2015 Rex Dieter <rdieter@fedoraproject.org> - 1.8.5-14
+- merge epel branch mods
+- (fedora) drop Requires: system-logos (not used anymore)
+
 * Fri Feb 19 2015 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.8.5-13
 - fix build of cinnamon badge
 
