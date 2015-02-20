@@ -4,7 +4,7 @@
 Summary:        LightDM GTK+ Greeter
 Name:           lightdm-gtk
 Version:        1.6.1
-Release:        4%{?dist}
+Release:        3%{?dist}
 
 License:        GPLv3+
 URL:            https://launchpad.net/lightdm-gtk-greeter
@@ -24,10 +24,6 @@ Patch50:        lightdm-gtk-greeter-1.5.2-bg_crash.patch
 # lightdm-gtk-greeter segfaults if session last used is uninstalled (and has a silly cache location)
 # http://bugzilla.redhat.com/1002782
 Patch51:        lightdm-gtk-greeter-validate_session.patch
-## upstream patches
-# backport fix for mouse cursor
-# http://bazaar.launchpad.net/~lightdm-gtk-greeter-team/lightdm-gtk-greeter/trunk/revision/298
-Patch100:       lightdm-gtk-greeter-1.8.5-lp#1024482.patch
 
 BuildRequires:  gettext
 BuildRequires:  intltool
@@ -62,7 +58,6 @@ A LightDM greeter that uses the GTK+ toolkit.
 %patch1 -p1 -b .greeter_background
 %patch50 -p1 -b .bg_crash
 %patch51 -p1 -b .validate_session
-%patch100 -p1 -b .lp#1024482
 
 
 %build
@@ -106,9 +101,6 @@ fi
 
 
 %changelog
-* Wed Feb 18 2015 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.6.1-4
-- cursor theme doesn't change (#989152)
-
 * Sat May 17 2014 Leigh Scott <leigh123linux@googlemail.com> - 1.6.1-3
 - change background for epel
 
