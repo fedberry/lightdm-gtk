@@ -1,10 +1,13 @@
 
 %global _hardened_build 1
 
+# Define to re-enable -gtk2 subpkg support -- rex
+#global gtk2 1
+
 Summary:        LightDM GTK3 Greeter
 Name:           lightdm-gtk
 Version:        1.8.5
-Release:        14%{?dist}
+Release:        15%{?dist}
 
 License:        GPLv3+
 URL:            https://launchpad.net/lightdm-gtk-greeter
@@ -35,7 +38,11 @@ BuildRequires:  gettext
 BuildRequires:  intltool
 BuildRequires:  pkgconfig(liblightdm-gobject-1)
 BuildRequires:  pkgconfig(gtk+-3.0)
+%if 0%{?gtk2}
 BuildRequires:  pkgconfig(gtk+-2.0)
+%else
+Obsoletes:      lightdm-gtk2 < 1.8.5-15
+%endif
 
 Obsoletes:      lightdm-gtk-greeter < 1.1.5-4
 Provides:       lightdm-gtk-greeter = %{version}-%{release}
@@ -208,6 +215,9 @@ fi
 
 
 %changelog
+* Tue Mar 24 2015 Rex Dieter <rdieter@fedoraproject.org> 1.8.5-15
+- drop (temporary) -gtk2 subpkg support
+
 * Fri Feb 20 2015 Rex Dieter <rdieter@fedoraproject.org> - 1.8.5-14
 - merge epel branch mods
 - (fedora) drop Requires: system-logos (not used anymore)
