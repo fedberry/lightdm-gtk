@@ -112,7 +112,8 @@ pushd %{_target_platform}
 make %{?_smp_mflags}
 popd
 
-# gtk2 build
+# GTK2
+%if 0%{?gtk2}
 mkdir %{_target_platform}-gtk2
 pushd %{_target_platform}-gtk2
 %configure \
@@ -122,10 +123,12 @@ pushd %{_target_platform}-gtk2
 
 make %{?_smp_mflags}
 popd
+%endif
 
 
 %install
 # GTK2
+%if 0%{?gtk2}
 make install DESTDIR=%{buildroot} -C %{_target_platform}-gtk2
 mv %{buildroot}%{_sbindir}/lightdm-gtk-greeter \
    %{buildroot}%{_sbindir}/lightdm-gtk2-greeter
@@ -135,6 +138,7 @@ sed -i \
   -e 's|^Exec=lightdm-gtk-greeter|Exec=lightdm-gtk2-greeter|' \
   -e 's|GTK+|GTK2|g' \
    %{buildroot}%{_datadir}/xgreeters/lightdm-gtk2-greeter.desktop
+%endif
 
 # GTK3
 make install DESTDIR=%{buildroot} -C %{_target_platform}
