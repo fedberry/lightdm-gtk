@@ -7,7 +7,7 @@
 Summary:        LightDM GTK3 Greeter
 Name:           lightdm-gtk
 Version:        1.8.5
-Release:        15%{?dist}
+Release:        16%{?dist}
 
 License:        GPLv3+
 URL:            https://launchpad.net/lightdm-gtk-greeter
@@ -33,6 +33,8 @@ Patch100:       lightdm-gtk-greeter-1.8.5-lp#1024482.patch
 Patch101:       lightdm-gtk-greeter-1.9.1-badges.patch
 # https://bugzilla.redhat.com/show_bug.cgi?id=1178498
 Patch102:       lightdm-gtk-greeter-1.8.5-add-cinnamon-badges.patch
+# Patch adapted from https://bugs.launchpad.net/debian/+source/lightdm/+bug/1366534
+Patch103:       lightdm-gtk-greeter-unset_AT_SPI_BUS.patch
 
 BuildRequires:  gettext
 BuildRequires:  intltool
@@ -90,6 +92,7 @@ A LightDM greeter that uses the GTK2 toolkit.
 %patch100 -p1 -b .lp#1024482
 %patch101 -p0 -b .badges
 %patch102 -p1 -b .cinnamon-badges
+%patch103 -p1 -b .unset_AT_SPI_BUS
 
 %patch50 -p1 -b .bg_crash
 %patch51 -p1 -b .vpath
@@ -221,6 +224,9 @@ fi
 
 
 %changelog
+* Wed May 20 2015 Rex Dieter <rdieter@fedoraproject.org> 1.8.5-16
+- unset_AT_SPI_BUS.patch (#1175026)
+
 * Tue Mar 24 2015 Rex Dieter <rdieter@fedoraproject.org> 1.8.5-15
 - drop (temporary) -gtk2 subpkg support
 
