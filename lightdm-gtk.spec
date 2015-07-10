@@ -7,7 +7,7 @@
 Summary:        LightDM GTK3 Greeter
 Name:           lightdm-gtk
 Version:        1.8.5
-Release:        17%{?dist}
+Release:        18%{?dist}
 
 License:        GPLv3+
 URL:            https://launchpad.net/lightdm-gtk-greeter
@@ -103,6 +103,8 @@ A LightDM greeter that uses the GTK2 toolkit.
 %patch1 -p1 -b .fedora
 %endif
 
+# Fix wrong path
+sed -i -e 's@/usr/lib/at-spi2-core/at-spi-bus-launcher@/usr/libexec/at-spi-bus-launcher@g' src/lightdm-gtk-greeter.c
 
 %build
 %global _configure ../configure
@@ -224,6 +226,9 @@ fi
 
 
 %changelog
+* Fri Jul 10 2015 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.8.5-18
+- fix wrong path to at-spi-bus-launcher
+
 * Wed Jun 17 2015 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1.8.5-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_23_Mass_Rebuild
 
