@@ -7,7 +7,7 @@
 Summary:        LightDM GTK3 Greeter
 Name:           lightdm-gtk
 Version:        1.8.5
-Release:        18%{?dist}
+Release:        19%{?dist}
 
 License:        GPLv3+
 URL:            https://launchpad.net/lightdm-gtk-greeter
@@ -23,6 +23,8 @@ Patch2:         lightdm-gtk-greeter-1.8.1-rhel7.patch
 Patch50:        lightdm-gtk-greeter-1.8.5-bg_crash.patch
 # fix out-of-tree builds
 Patch51:        lightdm-gtk-greeter-1.8.5-vpath.patch
+# fix path to at-spi-bus-launcher (use /usr/libexec, instead of ubuntu-specific /usr/lib/at-spi2-core/)
+Patch52:        lightdm-gtk-greeter-at-spi-bus-launcher_path.patch
 
 ## upstream patches
 # backport fix for mouse cursor
@@ -96,6 +98,7 @@ A LightDM greeter that uses the GTK2 toolkit.
 
 %patch50 -p1 -b .bg_crash
 %patch51 -p1 -b .vpath
+%patch52 -p1 -b .at-spi-bus-launcher_path
 
 %if 0%{?rhel} > 6
 %patch2 -p1 -b .rhel7
@@ -103,8 +106,6 @@ A LightDM greeter that uses the GTK2 toolkit.
 %patch1 -p1 -b .fedora
 %endif
 
-# Fix wrong path
-sed -i -e 's@/usr/lib/at-spi2-core/at-spi-bus-launcher@/usr/libexec/at-spi-bus-launcher@g' src/lightdm-gtk-greeter.c
 
 %build
 %global _configure ../configure
@@ -226,6 +227,9 @@ fi
 
 
 %changelog
+* Mon Jul 13 2015 Rex Dieter <rdieter@fedoraproject.org> 1.8.5-19
+- use patch instead of sed (for previous commit)
+
 * Fri Jul 10 2015 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.8.5-18
 - fix wrong path to at-spi-bus-launcher
 

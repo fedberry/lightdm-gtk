@@ -1,0 +1,15 @@
+diff -up lightdm-gtk-greeter-1.8.5/src/lightdm-gtk-greeter.c.at-spi-bus-launcher_path lightdm-gtk-greeter-1.8.5/src/lightdm-gtk-greeter.c
+--- lightdm-gtk-greeter-1.8.5/src/lightdm-gtk-greeter.c.at-spi-bus-launcher_path	2015-07-13 06:52:43.517792296 -0500
++++ lightdm-gtk-greeter-1.8.5/src/lightdm-gtk-greeter.c	2015-07-13 06:57:46.877314241 -0500
+@@ -2427,9 +2427,9 @@ main (int argc, char **argv)
+     g_shell_parse_argv (value, &argp, &a11y_keyboard_command, NULL);
+     g_free (value);
+ 
+-    gchar *AT_SPI_CMD[] = {"/usr/lib/at-spi2-core/at-spi-bus-launcher", "--launch-immediately", NULL};
++    gchar *AT_SPI_CMD[] = {"/usr/libexec/at-spi-bus-launcher", "--launch-immediately", NULL};
+     if (!g_spawn_async (NULL, AT_SPI_CMD, NULL, G_SPAWN_SEARCH_PATH, NULL, NULL, &spi_pid, &error))
+-        g_warning ("Failed to run \"at-spi-bus-launcher\": %s", error->message);
++        g_warning ("Failed to run \"/usr/libexec/at-spi-bus-launcher\": %s", error->message);
+     g_clear_error (&error);
+ 
+     builder = gtk_builder_new ();
