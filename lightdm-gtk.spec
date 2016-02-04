@@ -7,7 +7,7 @@
 Summary:        LightDM GTK3 Greeter
 Name:           lightdm-gtk
 Version:        1.8.5
-Release:        19%{?dist}
+Release:        20%{?dist}
 
 License:        GPLv3+
 URL:            https://launchpad.net/lightdm-gtk-greeter
@@ -227,6 +227,9 @@ fi
 
 
 %changelog
+* Thu Feb 04 2016 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.5-20
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_24_Mass_Rebuild
+
 * Mon Jul 13 2015 Rex Dieter <rdieter@fedoraproject.org> 1.8.5-19
 - use patch instead of sed (for previous commit)
 
