@@ -1,232 +1,119 @@
 
-%global _hardened_build 1
-
-# Define to re-enable -gtk2 subpkg support -- rex
-#global gtk2 1
-
-Summary:        LightDM GTK3 Greeter
+Summary:        LightDM GTK Greeter
 Name:           lightdm-gtk
-Version:        1.8.5
-Release:        20%{?dist}
+Version:        2.0.1
+Release:        1%{?dist}
 
 License:        GPLv3+
 URL:            https://launchpad.net/lightdm-gtk-greeter
-Source0:        https://launchpad.net/lightdm-gtk-greeter/1.8/%{version}/+download/lightdm-gtk-greeter-%{version}.tar.gz
+Source0:        https://launchpad.net/lightdm-gtk-greeter/2.0/%{version}/+download/lightdm-gtk-greeter-%{version}.tar.gz
+
+Source10:       60-lightdm-gtk-greeter.conf
 
 # tweak default config
-Patch1:         lightdm-gtk-greeter-1.8.1-fedora.patch
-Patch2:         lightdm-gtk-greeter-1.8.1-rhel7.patch
 
 ## upstreamable patches
-# avoid setting background when given bogus screen geometry
-# http://bugzilla.redhat.com/915986
-Patch50:        lightdm-gtk-greeter-1.8.5-bg_crash.patch
-# fix out-of-tree builds
-Patch51:        lightdm-gtk-greeter-1.8.5-vpath.patch
-# fix path to at-spi-bus-launcher (use /usr/libexec, instead of ubuntu-specific /usr/lib/at-spi2-core/)
-Patch52:        lightdm-gtk-greeter-at-spi-bus-launcher_path.patch
 
 ## upstream patches
-# backport fix for mouse cursor
-# http://bazaar.launchpad.net/~lightdm-gtk-greeter-team/lightdm-gtk-greeter/trunk/revision/298
-Patch100:       lightdm-gtk-greeter-1.8.5-lp#1024482.patch
-# add badges for Mate and Window Maker
-# http://bazaar.launchpad.net/~lightdm-gtk-greeter-team/lightdm-gtk-greeter/trunk/revision/311
-Patch101:       lightdm-gtk-greeter-1.9.1-badges.patch
-# https://bugzilla.redhat.com/show_bug.cgi?id=1178498
-Patch102:       lightdm-gtk-greeter-1.8.5-add-cinnamon-badges.patch
-# Patch adapted from https://bugs.launchpad.net/debian/+source/lightdm/+bug/1366534
-Patch103:       lightdm-gtk-greeter-unset_AT_SPI_BUS.patch
 
 BuildRequires:  gettext
 BuildRequires:  intltool
 BuildRequires:  pkgconfig(liblightdm-gobject-1)
 BuildRequires:  pkgconfig(gtk+-3.0)
-%if 0%{?gtk2}
-BuildRequires:  pkgconfig(gtk+-2.0)
-%else
-Obsoletes:      lightdm-gtk2 < 1.8.5-15
-%endif
 
+Obsoletes:      lightdm-gtk2 < 1.8.5-15
+
+Obsoletes:      lightdm-gtk-common < 2.0
 Obsoletes:      lightdm-gtk-greeter < 1.1.5-4
 Provides:       lightdm-gtk-greeter = %{version}-%{release}
 Provides:       lightdm-greeter = 1.2
-Requires:       %{name}-common = %{version}-%{release}
+
 Requires:       lightdm%{?_isa}
 
-Requires(post): %{_sbindir}/update-alternatives
-Requires(postun): %{_sbindir}/update-alternatives
-
-%description
-A LightDM greeter that uses the GTK3 toolkit.
-
-%package common
-Summary: Common files for %{name}
-# when -common was split out
-Conflicts: lightdm-gtk < 1.8.5-5
 # for default background/wallpaper
 %if 0%{?fedora}
+%global background %{_datadir}/backgrounds/default.png
 Requires:       desktop-backgrounds-compat
 %endif
 %if 0%{?rhel}
+%global background %{_datadir}/backgrounds/day.jpg
 Requires:       system-logos
 %endif
 # owner of HighContrast gtk/icon themes
 Requires:       gnome-themes-standard
-BuildArch:      noarch
-%description common
-%{summary}.
 
-%package -n lightdm-gtk2
-Summary:        LightDM GTK2 Greeter
-Provides:       lightdm-greeter = 1.2
-Requires:       %{name}-common = %{version}-%{release}
-Requires:       lightdm%{?_isa}
-Requires(post): %{_sbindir}/update-alternatives
-Requires(postun): %{_sbindir}/update-alternatives
-%description -n lightdm-gtk2
-A LightDM greeter that uses the GTK2 toolkit.
+%description
+A LightDM greeter that uses the GTK3 toolkit.
 
 
 %prep
-%setup -q -n lightdm-gtk-greeter-%{version}
+%autosetup -n lightdm-gtk-greeter-%{version} -p1
 
-%patch100 -p1 -b .lp#1024482
-%patch101 -p0 -b .badges
-%patch102 -p1 -b .cinnamon-badges
-%patch103 -p1 -b .unset_AT_SPI_BUS
-
-%patch50 -p1 -b .bg_crash
-%patch51 -p1 -b .vpath
-%patch52 -p1 -b .at-spi-bus-launcher_path
-
-%if 0%{?rhel} > 6
-%patch2 -p1 -b .rhel7
-%else
-%patch1 -p1 -b .fedora
+%if 0%{?background:1}
+sed -i.background -e "s|#background=.*|background=%{background}|" \
+  data/lightdm-gtk-greeter.conf
 %endif
 
 
 %build
-%global _configure ../configure
-mkdir %{_target_platform}
-pushd %{_target_platform}
-%configure \
-  --disable-silent-rules \
-  --disable-static
-
-make %{?_smp_mflags}
-popd
-
-# GTK2
-%if 0%{?gtk2}
-mkdir %{_target_platform}-gtk2
-pushd %{_target_platform}-gtk2
 %configure \
   --disable-silent-rules \
   --disable-static \
-  --with-gtk2
+  --enable-at-spi-command="%{libexecdir}/at-spi-bus-launcher --launch-immediately"
 
 make %{?_smp_mflags}
-popd
-%endif
 
 
 %install
-# GTK2
-%if 0%{?gtk2}
-make install DESTDIR=%{buildroot} -C %{_target_platform}-gtk2
-mv %{buildroot}%{_sbindir}/lightdm-gtk-greeter \
-   %{buildroot}%{_sbindir}/lightdm-gtk2-greeter
-mv %{buildroot}%{_datadir}/xgreeters/lightdm-gtk-greeter.desktop \
-   %{buildroot}%{_datadir}/xgreeters/lightdm-gtk2-greeter.desktop
-sed -i \
-  -e 's|^Exec=lightdm-gtk-greeter|Exec=lightdm-gtk2-greeter|' \
-  -e 's|GTK+|GTK2|g' \
-   %{buildroot}%{_datadir}/xgreeters/lightdm-gtk2-greeter.desktop
-%endif
+make install DESTDIR=%{buildroot}
 
-# GTK3
-make install DESTDIR=%{buildroot} -C %{_target_platform}
+install -m644 -p -D %{SOURCE10} \
+  %{buildroot}%{_datadir}/lightdm/lightdm.conf.d/60-lightdm-gtk-greeter.conf
 
 %find_lang lightdm-gtk-greeter 
 
 # create/own GREETER_DATA_DIR
 mkdir -p %{buildroot}%{_datadir}/lightdm-gtk-greeter/
 
-# own alternatives target
-touch %{buildroot}%{_datadir}/xgreeters/lightdm-greeter.desktop
-
 ## unpackaged files
 rm -fv %{buildroot}%{_docdir}/lightdm-gtk-greeter/sample-lightdm-gtk-greeter.css
 
 
-%post
+%pre
 %{_sbindir}/update-alternatives \
-  --install %{_datadir}/xgreeters/lightdm-greeter.desktop \
-  lightdm-greeter \
-  %{_datadir}/xgreeters/lightdm-gtk-greeter.desktop \
-  20 
+  --remove lightdm-greeter \
+  %{_datadir}/xgreeters/lightdm-gtk-greeter.desktop 2> /dev/null ||:
+
+%post
+touch --no-create %{_datadir}/icons/hicolor &> /dev/null ||:
 
 %postun
 if [ $1 -eq 0 ]; then
-%{_sbindir}/update-alternatives \
-  --remove lightdm-greeter \
-  %{_datadir}/xgreeters/lightdm-gtk-greeter.desktop
+touch --no-create %{_datadir}/icons/hicolor &> /dev/null ||:
+gtk-update-icon-cache %{_datadir}/icons/hicolor &> /dev/null || :
 fi
 
-%files
-%doc ChangeLog COPYING NEWS README
+%posttrans
+gtk-update-icon-cache %{_datadir}/icons/hicolor &> /dev/null || :
+
+%files -f lightdm-gtk-greeter.lang
+%license COPYING
+%doc ChangeLog NEWS README
 %doc data/sample-lightdm-gtk-greeter.css
 %config(noreplace) %{_sysconfdir}/lightdm/lightdm-gtk-greeter.conf
 %{_sbindir}/lightdm-gtk-greeter
 %{_datadir}/xgreeters/lightdm-gtk-greeter.desktop
 %dir %{_datadir}/lightdm-gtk-greeter/
-# own alternatives target
-%ghost %{_datadir}/xgreeters/lightdm-greeter.desktop
-
-%post common
-touch --no-create %{_datadir}/icons/hicolor &> /dev/null ||:
-
-%postun common
-if [ $1 -eq 0 ]; then
-touch --no-create %{_datadir}/icons/hicolor &> /dev/null ||:
-gtk-update-icon-cache %{_datadir}/icons/hicolor &> /dev/null || :
-fi
-
-%posttrans common
-gtk-update-icon-cache %{_datadir}/icons/hicolor &> /dev/null || :
-
-%files common -f lightdm-gtk-greeter.lang
 %{_datadir}/icons/hicolor/scalable/places/*badge-symbolic.svg
-
-%if 0%{?gtk2}
-%post -n lightdm-gtk2
-%{_sbindir}/update-alternatives \
-  --install %{_datadir}/xgreeters/lightdm-greeter.desktop \
-  lightdm-greeter \
-  %{_datadir}/xgreeters/lightdm-gtk2-greeter.desktop \
-  15
-
-%postun -n lightdm-gtk2
-if [ $1 -eq 0 ]; then
-%{_sbindir}/update-alternatives \
-  --remove lightdm-greeter \
-  %{_datadir}/xgreeters/lightdm-gtk2-greeter.desktop
-fi
-
-%files -n lightdm-gtk2
-%doc ChangeLog COPYING NEWS README
-%config(noreplace) %{_sysconfdir}/lightdm/lightdm-gtk-greeter.conf
-%{_sbindir}/lightdm-gtk2-greeter
-%dir %{_datadir}/lightdm-gtk-greeter/
-%{_datadir}/xgreeters/lightdm-gtk2-greeter.desktop
-# own alternatives target
-%ghost %{_datadir}/xgreeters/lightdm-greeter.desktop
-%endif
+%{_datadir}/lightdm/lightdm.conf.d/60-lightdm-gtk-greeter.conf
 
 
 %changelog
+* Sat Apr 02 2016 Rex Dieter <rdieter@fedoraproject.org> - 2.0.1-1
+- lightdm-gtk-2.0.1 (#1132844)
+- use conf.d snippets (#1096216)
+- drop -common subpkg
+
 * Thu Feb 04 2016 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.5-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_24_Mass_Rebuild
 
