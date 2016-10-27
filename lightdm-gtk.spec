@@ -18,6 +18,8 @@ Source10:       60-lightdm-gtk-greeter.conf
 
 BuildRequires:  gettext
 BuildRequires:  intltool
+# exo-csource
+BuildRequires:  exo-devel
 BuildRequires:  pkgconfig(liblightdm-gobject-1)
 BuildRequires:  pkgconfig(gtk+-3.0)
 
