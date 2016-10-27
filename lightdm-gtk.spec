@@ -1,7 +1,7 @@
 
 Summary:        LightDM GTK Greeter
 Name:           lightdm-gtk
-Version:        2.0.1
+Version:        2.0.2
 Release:        1%{?dist}
 
 License:        GPLv3+
@@ -109,6 +109,9 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &> /dev/null || :
 
 
 %changelog
+* Thu Oct 27 2016 Rex Dieter <rdieter@fedoraproject.org> - 2.0.2-1
+- lightdm-gtk-2.0.2 (#1382947)
+
 * Sat Apr 02 2016 Rex Dieter <rdieter@fedoraproject.org> - 2.0.1-1
 - lightdm-gtk-2.0.1 (#1132844)
 - use conf.d snippets (#1096216)
