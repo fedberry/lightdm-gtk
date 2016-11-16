@@ -2,7 +2,7 @@
 Summary:        LightDM GTK Greeter
 Name:           lightdm-gtk
 Version:        2.0.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 
 License:        GPLv3+
 URL:            https://launchpad.net/lightdm-gtk-greeter
@@ -61,7 +61,7 @@ sed -i.background -e "s|#background=.*|background=%{background}|" \
 %configure \
   --disable-silent-rules \
   --disable-static \
-  --enable-at-spi-command="%{libexecdir}/at-spi-bus-launcher --launch-immediately"
+  --enable-at-spi-command="%{_libexecdir}/at-spi-bus-launcher --launch-immediately"
 
 make %{?_smp_mflags}
 
@@ -111,6 +111,9 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &> /dev/null || :
 
 
 %changelog
+* Wed Nov 16 2016 Rex Dieter <rdieter@fedoraproject.org> 2.0.2-2
+- %%build: fix typo in --enable-at-spi-command target
+
 * Thu Oct 27 2016 Rex Dieter <rdieter@fedoraproject.org> - 2.0.2-1
 - lightdm-gtk-2.0.2 (#1382947)
 
