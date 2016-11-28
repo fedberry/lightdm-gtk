@@ -2,7 +2,7 @@
 Summary:        LightDM GTK Greeter
 Name:           lightdm-gtk
 Version:        2.0.2
-Release:        2%{?dist}
+Release:        3%{?dist}
 
 License:        GPLv3+
 URL:            https://launchpad.net/lightdm-gtk-greeter
@@ -13,6 +13,9 @@ Source10:       60-lightdm-gtk-greeter.conf
 # tweak default config
 
 ## upstreamable patches
+# https://bugzilla.redhat.com/show_bug.cgi?id=1178498
+# (lookaside cache)
+Patch102:       lightdm-gtk-greeter-1.8.5-add-cinnamon-badges.patch
 
 ## upstream patches
 
@@ -111,6 +114,9 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &> /dev/null || :
 
 
 %changelog
+* Mon Nov 28 2016 Rex Dieter <rdieter@fedoraproject.org> 2.0.2-3
+- restore add-cinnamon-badgets.patch
+
 * Wed Nov 16 2016 Rex Dieter <rdieter@fedoraproject.org> 2.0.2-2
 - %%build: fix typo in --enable-at-spi-command target
 
