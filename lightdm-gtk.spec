@@ -37,7 +37,7 @@ Requires:       lightdm%{?_isa}
 
 # for default background/wallpaper
 %if 0%{?fedora}
-%global background %{_datadir}/backgrounds/default.png
+%global background #333333
 Requires:       desktop-backgrounds-compat
 %endif
 %if 0%{?rhel}
