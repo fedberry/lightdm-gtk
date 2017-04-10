@@ -59,6 +59,8 @@ sed -i.background -e "s|#background=.*|background=%{background}|" \
   data/lightdm-gtk-greeter.conf
 %endif
 
+echo "default-user-image=#fedberry-logo-icon" >>data/lightdm-gtk-greeter.conf
+
 
 %build
 %configure \
