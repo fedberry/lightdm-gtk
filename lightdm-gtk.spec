@@ -129,6 +129,15 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &> /dev/null || :
 
 
 %changelog
+* Thu Nov 23 2017 Vaughan Agrez <devel@agrez.net> 2.0.3-5
+- New release - 2.0.3
+- Sync with upstream Fedora:
+  * remove atspi spawn code, rhbz (#1477879)
+  * Add Supplements: (lightdm%{?_isa} and lightdm-autologin-greeter),
+  fixing rhbz#1481192
+  * Fix compile on arm arch
+- Bump release
+
 * Mon Apr 10 2017 Vaughan Agrez <devel@agrez.net> 2.0.2-5
 - Use background colour instead of default wallpaper
 - Use fedberry-logo-icon as default user image
