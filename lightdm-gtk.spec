@@ -6,9 +6,11 @@ Release:        5%{?dist}
 
 License:        GPLv3+
 URL:            https://launchpad.net/lightdm-gtk-greeter
-Source0:        https://launchpad.net/lightdm-gtk-greeter/2.0/%{version}/+download/lightdm-gtk-greeter-%{version}.tar.gz
+Source0:        %url/2.0/%{version}/+download/lightdm-gtk-greeter-%{version}.tar.gz
 
 Source10:       60-lightdm-gtk-greeter.conf
+Patch0:         fix_arm_compile.patch
+Patch1:         lightdm-gtk-greeter_readd-power.patch
 
 # tweak default config
 
@@ -18,6 +20,8 @@ Source10:       60-lightdm-gtk-greeter.conf
 Patch102:       lightdm-gtk-greeter-1.8.5-add-cinnamon-badges.patch
 
 ## upstream patches
+# fixes rhbz (#1477879)
+Patch103:       lightdm-gtk-greeter_remove-atspi-spawn-code.patch
 
 BuildRequires:  gettext
 BuildRequires:  intltool
@@ -25,6 +29,9 @@ BuildRequires:  intltool
 BuildRequires:  exo-devel
 BuildRequires:  pkgconfig(liblightdm-gobject-1)
 BuildRequires:  pkgconfig(gtk+-3.0)
+# for autogen.sh
+BuildRequires:  gnome-common
+BuildRequires:  gobject-introspection-devel
 
 Obsoletes:      lightdm-gtk2 < 1.8.5-15
 
@@ -47,12 +54,18 @@ Requires:       system-logos
 # owner of HighContrast gtk/icon themes
 Requires:       gnome-themes-standard
 
+# Fix issue with lightdm-autologin-greeter pulled in basic-desktop netinstall.
+# See: https://bugzilla.redhat.com/show_bug.cgi?id=1481192
+Supplements: (lightdm%{?_isa} and lightdm-autologin-greeter)
+
 %description
 A LightDM greeter that uses the GTK3 toolkit.
 
 
 %prep
 %autosetup -n lightdm-gtk-greeter-%{version} -p1
+
+NOCONFIGURE=1 ./autogen.sh
 
 %if 0%{?background:1}
 sed -i.background -e "s|#background=.*|background=%{background}|" \
@@ -66,13 +79,13 @@ echo "default-user-image=#fedberry-logo-icon" >>data/lightdm-gtk-greeter.conf
 %configure \
   --disable-silent-rules \
   --disable-static \
-  --enable-at-spi-command="%{_libexecdir}/at-spi-bus-launcher --launch-immediately"
+  --disable-libindicator
 
-make %{?_smp_mflags}
+%make_build
 
 
 %install
-make install DESTDIR=%{buildroot}
+%make_install
 
 install -m644 -p -D %{SOURCE10} \
   %{buildroot}%{_datadir}/lightdm/lightdm.conf.d/60-lightdm-gtk-greeter.conf
