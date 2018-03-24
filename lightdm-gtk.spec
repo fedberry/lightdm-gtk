@@ -97,17 +97,6 @@ rm -fv %{buildroot}%{_docdir}/lightdm-gtk-greeter/sample-lightdm-gtk-greeter.css
   --remove lightdm-greeter \
   %{_datadir}/xgreeters/lightdm-gtk-greeter.desktop 2> /dev/null ||:
 
-%post
-touch --no-create %{_datadir}/icons/hicolor &> /dev/null ||:
-
-%postun
-if [ $1 -eq 0 ]; then
-touch --no-create %{_datadir}/icons/hicolor &> /dev/null ||:
-gtk-update-icon-cache %{_datadir}/icons/hicolor &> /dev/null || :
-fi
-
-%posttrans
-gtk-update-icon-cache %{_datadir}/icons/hicolor &> /dev/null || :
 
 %files -f lightdm-gtk-greeter.lang
 %license COPYING
