@@ -9,7 +9,6 @@ URL:            https://launchpad.net/lightdm-gtk-greeter
 Source0:        %url/2.0/%{version}/+download/lightdm-gtk-greeter-%{version}.tar.gz
 
 Source10:       60-lightdm-gtk-greeter.conf
-Patch1:         lightdm-gtk-greeter_readd-power.patch
 Patch1:         lightdm-gtk-greeter-readd-language.patch
 
 ## upstreamable patches

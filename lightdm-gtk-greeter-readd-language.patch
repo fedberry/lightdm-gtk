@@ -1,12 +1,12 @@
-diff -uprN lightdm-gtk-greeter-2.0.3-orig/src/lightdm-gtk-greeter.c lightdm-gtk-greeter-2.0.3/src/lightdm-gtk-greeter.c
---- lightdm-gtk-greeter-2.0.3-orig/src/lightdm-gtk-greeter.c	2017-10-26 14:34:44.507842000 +0200
-+++ lightdm-gtk-greeter-2.0.3/src/lightdm-gtk-greeter.c	2017-10-26 14:39:05.660517078 +0200
-@@ -94,8 +94,8 @@ static GtkButton    *power_ok_button, *p
+diff -U 3 -H -d -r -N -- lightdm-gtk-greeter-2.0.5-orig/src/lightdm-gtk-greeter.c lightdm-gtk-greeter-2.0.5/src/lightdm-gtk-greeter.c
+--- lightdm-gtk-greeter-2.0.5-orig/src/lightdm-gtk-greeter.c	2018-03-15 08:23:15.000000000 +0800
++++ lightdm-gtk-greeter-2.0.5/src/lightdm-gtk-greeter.c	2018-03-24 12:16:04.434701654 +0800
+@@ -99,8 +99,8 @@
  static GtkLabel     *power_title, *power_text;
  static GtkImage     *power_icon;
  
 -static const gchar *DEFAULT_LAYOUT[] = {"~spacer", "~spacer", "~host", "~spacer",
--                                        "~session", "~a11y", "~clock", NULL};
+-                                        "~session", "~a11y", "~clock", "~power", NULL};
 +static const gchar *DEFAULT_LAYOUT[] = {"~host", "~spacer", "~clock", "~spacer",
 +                                        "~session", "~language", "~a11y", "~power", NULL};
  
