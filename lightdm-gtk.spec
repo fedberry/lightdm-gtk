@@ -112,6 +112,13 @@ rm -fv %{buildroot}%{_docdir}/lightdm-gtk-greeter/sample-lightdm-gtk-greeter.css
 
 
 %changelog
+* Sat Mar 24 2018 Vaughan Agrez <devel@agrez.net> 2.0.5-1
+- New release - 2.0.5
+- Drop Patch0 & Patch103
+- Update patch1 (add back language button)
+- Drop obsolete %%post icon scriptlets
+- Add configure option --enable-kill-on-sigterm
+
 * Thu Nov 23 2017 Vaughan Agrez <devel@agrez.net> 2.0.3-5
 - New release - 2.0.3
 - Sync with upstream Fedora:
