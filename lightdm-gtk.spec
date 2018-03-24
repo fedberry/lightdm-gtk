@@ -1,8 +1,8 @@
 
 Summary:        LightDM GTK Greeter
 Name:           lightdm-gtk
-Version:        2.0.3
-Release:        5%{?dist}
+Version:        2.0.5
+Release:        1%{?dist}
 
 License:        GPLv3+
 URL:            https://launchpad.net/lightdm-gtk-greeter
