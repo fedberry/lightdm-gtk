@@ -9,19 +9,13 @@ URL:            https://launchpad.net/lightdm-gtk-greeter
 Source0:        %url/2.0/%{version}/+download/lightdm-gtk-greeter-%{version}.tar.gz
 
 Source10:       60-lightdm-gtk-greeter.conf
-Patch0:         fix_arm_compile.patch
 Patch1:         lightdm-gtk-greeter_readd-power.patch
-
-# tweak default config
+Patch1:         lightdm-gtk-greeter-readd-language.patch
 
 ## upstreamable patches
 # https://bugzilla.redhat.com/show_bug.cgi?id=1178498
 # (lookaside cache)
 Patch102:       lightdm-gtk-greeter-1.8.5-add-cinnamon-badges.patch
-
-## upstream patches
-# fixes rhbz (#1477879)
-Patch103:       lightdm-gtk-greeter_remove-atspi-spawn-code.patch
 
 BuildRequires:  gettext
 BuildRequires:  intltool
