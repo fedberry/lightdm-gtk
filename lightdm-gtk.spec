@@ -72,7 +72,8 @@ echo "default-user-image=#fedberry-logo-icon" >>data/lightdm-gtk-greeter.conf
 %configure \
   --disable-silent-rules \
   --disable-static \
-  --disable-libindicator
+  --disable-libindicator \
+  --enable-kill-on-sigterm
 
 %make_build
 
