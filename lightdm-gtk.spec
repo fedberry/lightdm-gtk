@@ -2,7 +2,7 @@
 Summary:        LightDM GTK Greeter
 Name:           lightdm-gtk
 Version:        2.0.5
-Release:        1%{?dist}
+Release:        2%{?dist}
 
 License:        GPLv3+
 URL:            https://launchpad.net/lightdm-gtk-greeter
@@ -73,6 +73,7 @@ echo "default-user-image=#fedberry-logo-icon" >>data/lightdm-gtk-greeter.conf
   --disable-silent-rules \
   --disable-static \
   --disable-libindicator \
+  --enable-at-spi-command="%{_libexecdir}/at-spi-bus-launcher --launch-immediately" \
   --enable-kill-on-sigterm
 
 %make_build
@@ -112,6 +113,9 @@ rm -fv %{buildroot}%{_docdir}/lightdm-gtk-greeter/sample-lightdm-gtk-greeter.css
 
 
 %changelog
+* Thu Apr 12 2018 Vaughan Agrez <devel@agrez.net> 2.0.5-2
+- Update %%configure switches
+
 * Sat Mar 24 2018 Vaughan Agrez <devel@agrez.net> 2.0.5-1
 - New release - 2.0.5
 - Drop Patch0 & Patch103
